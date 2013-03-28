@@ -27,6 +27,11 @@ public class PlanAcademicoDAO extends HibernateDaoSupport {
         return getHibernateTemplate().findByNamedQuery("PlanAcademico.findAll");
     }
     
+    public List<PlanAcademico> listarPlanesAcademicos(String idEspecialidad) {
+        return getHibernateTemplate().find("SELECT p FROM PlanAcademico p "
+                + "WHERE p.idEspecialidad.idEspecialidad = ?", idEspecialidad);
+    }
+    
     public PlanAcademico buscarPlanAcademico(Long idPlanAcademico) {
         return getHibernateTemplate().get(PlanAcademico.class, idPlanAcademico);
     }

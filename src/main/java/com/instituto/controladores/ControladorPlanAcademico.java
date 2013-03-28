@@ -34,4 +34,8 @@ public class ControladorPlanAcademico {
     public Exception eliminarPlanAcademico(PlanAcademico pa) {
         return srv.eliminarPlanAcademico(pa);
     }
+
+    public List<PlanAcademico> listarPlanesAcademicos(String idEspecialidad) {
+        return srv.listarPlanesAcademicos(idEspecialidad);
+    }
 }

@@ -147,7 +147,7 @@ public class panNuevoPlanAcademico extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Cursos"));
@@ -170,15 +170,27 @@ public class panNuevoPlanAcademico extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Curso", "Ciclo"
+                "Id Curso", "Curso", "Ciclo"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tabla.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tablaKeyTyped(evt);
             }
         });
         jScrollPane1.setViewportView(tabla);
@@ -214,7 +226,7 @@ public class panNuevoPlanAcademico extends javax.swing.JPanel {
                     .addComponent(cmbCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -261,7 +273,7 @@ public class panNuevoPlanAcademico extends javax.swing.JPanel {
                 d.setIdCiclo(cmbCiclo.getSelectedItem().toString());
                 d.setIdNombreCurso(nc);
                 dpa.add(d);
-                dtm.addRow(new Object[]{nc.getDescripcion(), 
+                dtm.addRow(new Object[]{nc.getIdNombreCursos(), nc.getDescripcion(), 
                     cmbCiclo.getSelectedItem()});
             } else {
                 JOptionPane.showMessageDialog(this, "El curso ya esta incluido en "
@@ -302,6 +314,25 @@ public class panNuevoPlanAcademico extends javax.swing.JPanel {
         // TODO add your handling code here:
         loadCursos();
     }//GEN-LAST:event_cmbEspecialidadActionPerformed
+
+    private void tablaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaKeyTyped
+        // TODO add your handling code here:
+        if(tabla.getSelectedRow() >= 0) {
+            if(JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar el curso?",
+                    "Plan Academico", JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                for (int i = 0; i < dpa.size(); i++) {
+                    DetallePlanAcademico d = dpa.get(i);
+                    if(d.getIdNombreCurso().getIdNombreCursos() == 
+                            Long.parseLong(tabla.getValueAt(
+                            tabla.getSelectedRow(), 0).toString())) {
+                        dpa.remove(i);
+                        dtm.removeRow(tabla.getSelectedRow());
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_tablaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

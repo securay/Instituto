@@ -34,4 +34,8 @@ public class ServicioPlanAcademico {
     public Exception eliminarPlanAcademico(PlanAcademico pa) {
         return dao.eliminarPlanAcademico(pa);
     }
+
+    public List<PlanAcademico> listarPlanesAcademicos(String idEspecialidad) {
+        return dao.listarPlanesAcademicos(idEspecialidad);
+    }
 }
