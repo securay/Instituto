@@ -42,13 +42,15 @@ public class panListarPlanesAcademicos extends javax.swing.JPanel {
     }
     
     private void loadEspecialidades() {
-        cmbEspecialidad.removeAllItems();
-        cmbEspecialidad.addItem("Todas Las Especialidades");
-        es= ce.listarEspecialidades();
-        for (Especialidad e : es) {
-            cmbEspecialidad.addItem(e.getNombre());
+        if(cmbEspecialidad != null) {
+            cmbEspecialidad.removeAllItems();
+            cmbEspecialidad.addItem("Todas Las Especialidades");
+            es= ce.listarEspecialidades();
+            for (Especialidad e : es) {
+                cmbEspecialidad.addItem(e.getNombre());
+            }
+            loadPlanes();
         }
-        loadPlanes();
     }
     
     private void loadPlanes() {
@@ -63,7 +65,9 @@ public class panListarPlanesAcademicos extends javax.swing.JPanel {
             for (PlanAcademico p : pa) {
                 if(p.getIdEspecialidad().getIdEspecialidad().equals(
                         es.get(cmbEspecialidad.getSelectedIndex() - 1).getIdEspecialidad()))
-                dtm.addRow(new Object[]{});
+                dtm.addRow(new Object[]{p.getIdPlanAcademico(),
+                    p.getDescripcion(), 
+                    getNombreEspecialidad(p.getIdEspecialidad().getIdEspecialidad())});
             }
         }
     }
@@ -107,6 +111,12 @@ public class panListarPlanesAcademicos extends javax.swing.JPanel {
         tabla = new javax.swing.JTable();
 
         jLabel1.setText("Especialidad");
+
+        cmbEspecialidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEspecialidadActionPerformed(evt);
+            }
+        });
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,6 +181,12 @@ public class panListarPlanesAcademicos extends javax.swing.JPanel {
             loadDetalle();
         }
     }//GEN-LAST:event_tablaMouseClicked
+
+    private void cmbEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEspecialidadActionPerformed
+        // TODO add your handling code here:
+        if(es != null && dtm != null && pa != null)
+            loadPlanes();
+    }//GEN-LAST:event_cmbEspecialidadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbEspecialidad;
