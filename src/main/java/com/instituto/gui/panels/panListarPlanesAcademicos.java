@@ -37,8 +37,8 @@ public class panListarPlanesAcademicos extends javax.swing.JPanel {
         this.cdpa= cdpa;
         initComponents();
         dtm= (DefaultTableModel) tabla.getModel();
-        loadEspecialidades();
         pa= cpa.listarPlanesAcademicos();
+        loadEspecialidades();
     }
     
     private void loadEspecialidades() {
