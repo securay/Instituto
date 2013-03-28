@@ -4,11 +4,15 @@
  */
 package com.instituto.gui.panels;
 
+import com.instituto.controladores.ControladorDetallePlanAcademico;
 import com.instituto.controladores.ControladorEspecialidad;
 import com.instituto.controladores.ControladorPlanAcademico;
 import com.instituto.entidades.Especialidad;
 import com.instituto.entidades.PlanAcademico;
+import java.awt.BorderLayout;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class panListarPlanesAcademicos extends javax.swing.JPanel {
     private ControladorPlanAcademico cpa;
     private ControladorEspecialidad ce;
+    private ControladorDetallePlanAcademico cdpa;
     private List<Especialidad> es;
     private List<PlanAcademico> pa;
     private DefaultTableModel dtm;
@@ -25,9 +30,11 @@ public class panListarPlanesAcademicos extends javax.swing.JPanel {
      * Creates new form panListarPlanesAcademicos
      */
     public panListarPlanesAcademicos(ControladorPlanAcademico cpa,
-            ControladorEspecialidad ce) {
+            ControladorEspecialidad ce,
+            ControladorDetallePlanAcademico cdpa) {
         this.cpa= cpa;
         this.ce= ce;
+        this.cdpa= cdpa;
         initComponents();
         dtm= (DefaultTableModel) tabla.getModel();
         loadEspecialidades();
@@ -67,6 +74,22 @@ public class panListarPlanesAcademicos extends javax.swing.JPanel {
                 return e.getNombre();
         }
         return null;
+    }
+    
+    private void loadDetalle() {
+        if(tabla.getSelectedRow() >= 0) {
+            JDialog frm= new JDialog();
+            frm.setTitle(tabla.getValueAt(tabla.getSelectedRow(), 1).toString());
+            frm.setLayout(new BorderLayout());
+            frm.add(new panListarDetallePlanAcademico(pa.get(tabla.getSelectedRow()), cdpa));
+            frm.pack();
+            frm.setLocation((getToolkit().getScreenSize().width - frm.getWidth()) / 2, 
+                    (getToolkit().getScreenSize().height - frm.getHeight()) / 2);
+            frm.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila valida", 
+                    "Plan Academico", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     /**
@@ -108,6 +131,11 @@ public class panListarPlanesAcademicos extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -136,6 +164,14 @@ public class panListarPlanesAcademicos extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount() == 2) {
+            loadDetalle();
+        }
+    }//GEN-LAST:event_tablaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbEspecialidad;
     private javax.swing.JLabel jLabel1;

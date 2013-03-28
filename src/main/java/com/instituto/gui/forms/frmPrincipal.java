@@ -23,6 +23,7 @@ import com.instituto.gui.panels.panListarDeudas;
 import com.instituto.gui.panels.panListarEspecialidades;
 import com.instituto.gui.panels.panListarPagos;
 import com.instituto.gui.panels.panListarPeriodos;
+import com.instituto.gui.panels.panListarPlanesAcademicos;
 import com.instituto.gui.panels.panListarProfesores;
 import com.instituto.gui.panels.panNuevaEspecialidad;
 import com.instituto.gui.panels.panNuevoAdministrativo;
@@ -336,6 +337,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuPlanAcademico.add(mnuNuevoPlanA);
 
         mnuListarPlanA.setText("Listar Planes Academicos");
+        mnuListarPlanA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListarPlanAActionPerformed(evt);
+            }
+        });
         mnuPlanAcademico.add(mnuListarPlanA);
 
         bar.add(mnuPlanAcademico);
@@ -573,6 +579,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         panMain.updateUI();
         pack();
     }//GEN-LAST:event_mnuNuevoPlanAActionPerformed
+
+    private void mnuListarPlanAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListarPlanAActionPerformed
+        // TODO add your handling code here:
+        panMain.removeAll();
+        panMain.add(new panListarPlanesAcademicos(context.getBean(ControladorPlanAcademico.class),
+                context.getBean(ControladorEspecialidad.class), 
+                context.getBean(ControladorDetallePlanAcademico.class)));
+        panMain.updateUI();
+        pack();
+    }//GEN-LAST:event_mnuListarPlanAActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ListarCursosDictar;
