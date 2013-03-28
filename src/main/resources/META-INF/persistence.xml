@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="com_Instituto_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.instituto.entidades.Alumno</class>
+    <class>com.instituto.entidades.Administrativo</class>
+    <class>com.instituto.entidades.NombreCurso</class>
+    <class>com.instituto.entidades.Curso</class>
+    <class>com.instituto.entidades.Profesor</class>
+    <class>com.instituto.entidades.DetalleCurso</class>
+    <class>com.instituto.entidades.Especialidad</class>
+    <class>com.instituto.entidades.DetalleNota</class>
+    <class>com.instituto.entidades.Periodo</class>
+    <class>com.instituto.entidades.DetallePagos</class>
+    <class>com.instituto.entidades.Pagos</class>
+    <class>com.instituto.entidades.PlanAcademico</class>
+    <class>com.instituto.entidades.DetallePlanAcademico</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://72.18.135.49:1533;databaseName=bdClienteServidor"/>
+      <property name="javax.persistence.jdbc.password" value="123456"/>
+      <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="javax.persistence.jdbc.user" value="clienteservidor"/>
+    </properties>
+  </persistence-unit>
+</persistence>

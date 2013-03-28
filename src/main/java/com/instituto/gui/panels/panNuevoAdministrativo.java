@@ -1,0 +1,292 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.instituto.gui.panels;
+
+import com.instituto.controladores.ControladorAdministrativo;
+import com.instituto.entidades.Administrativo;
+import com.instituto.util.MaximaLongitud;
+import com.instituto.util.SoloNumeros;
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+
+/**
+ *
+ * @author root
+ */
+public class panNuevoAdministrativo extends javax.swing.JPanel {
+    private ControladorAdministrativo ca;
+    /**
+     * Creates new form panNuevoAdministrativo
+     */
+    public panNuevoAdministrativo(ControladorAdministrativo ca, Administrativo a) {
+        this.ca= ca;
+        initComponents();
+        txtApellidoM.addKeyListener(new MaximaLongitud(25));
+        txtApellidoP.addKeyListener(new MaximaLongitud(25));
+        txtCelular.addKeyListener(new MaximaLongitud(12));
+        txtCelular.addKeyListener(new SoloNumeros());
+        txtCodigo.addKeyListener(new MaximaLongitud(8));
+        txtCodigo.addKeyListener(new SoloNumeros());
+        txtDNI.addKeyListener(new MaximaLongitud(8));
+        txtDNI.addKeyListener(new SoloNumeros());
+        txtDireccion.addKeyListener(new MaximaLongitud(200));
+        txtEmail.addKeyListener(new MaximaLongitud(100));
+        txtNombre.addKeyListener(new MaximaLongitud(50));
+        txtTelefono.addKeyListener(new MaximaLongitud(12));
+        txtTelefono.addKeyListener(new SoloNumeros());
+        llenarDatos(a);
+    }
+    
+    private void llenarDatos(Administrativo a) {
+        if(a != null) {
+            txtApellidoM.setText(a.getApellidoMaterno());
+            txtApellidoP.setText(a.getApellidoPaterno());
+            txtCelular.setText(a.getCelular());
+            txtCodigo.setText(a.getIdAdministrativo());
+            txtDNI.setText(a.getDni());
+            txtDireccion.setText(a.getDireccion());
+            txtEmail.setText(a.getEmail());
+            txtNombre.setText(a.getNombres());
+            txtTelefono.setText(a.getTelefono());
+            txtCodigo.setEditable(false);
+        }
+    }
+    
+    public void limpiar() {
+        Border b= txtCelular.getBorder();
+        txtApellidoM.setBorder(b);
+        txtApellidoP.setBorder(b);
+        txtCodigo.setBorder(b);
+        txtDNI.setBorder(b);
+        txtDireccion.setBorder(b);
+        txtNombre.setBorder(b);
+        txtApellidoM.setText("");
+        txtApellidoP.setText("");
+        txtCelular.setText("");
+        txtCodigo.setText("");
+        txtDNI.setText("");
+        txtDireccion.setText("");
+        txtEmail.setText("");
+        txtNombre.setText("");
+        txtTelefono.setText("");
+    }
+    
+    public void registrarAdministrativo() {
+        Administrativo a= new Administrativo();
+        boolean res= true;
+        if(txtCodigo.getText().length() > 0) {
+            a.setIdAdministrativo(txtCodigo.getText());
+            a.setContrasena(txtCodigo.getText());
+        } else res= false;
+        if(txtApellidoM.getText().length() > 0) {
+            a.setApellidoMaterno(txtApellidoM.getText());
+        } else res= false;
+        if(txtApellidoP.getText().length() > 0) {
+            a.setApellidoPaterno(txtApellidoP.getText());
+        } else res= false;
+        
+        if(txtDireccion.getText().length() > 0) {
+            a.setDireccion(txtDireccion.getText());
+        } else res= false;
+        if(txtDNI.getText().length() == 8) {
+            a.setDni(txtDNI.getText());
+        } else res= false;
+        if(txtNombre.getText().length() > 0) {
+            a.setNombres(txtNombre.getText());
+        } else res= false;
+        a.setCelular(txtCelular.getText());
+        a.setEmail(txtEmail.getText());
+        a.setTelefono(txtTelefono.getText());
+        a.setActivo(true);
+        if(res) {
+            Exception ex= ca.insertarAdministrativo(a);
+            if(ex == null) {
+                JOptionPane.showMessageDialog(this, "Se registro con exito el administrativo", 
+                    "Alumno", JOptionPane.INFORMATION_MESSAGE);
+                limpiar();
+            } else
+                JOptionPane.showMessageDialog(this, ex.getMessage(), 
+                    "Alumno", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se registraron los campos obligatorios", 
+                    "Alumno", JOptionPane.INFORMATION_MESSAGE);
+            Border b= BorderFactory.createEtchedBorder(Color.red, Color.red);
+            txtCodigo.setBorder(b);
+            txtApellidoM.setBorder(b);
+            txtApellidoP.setBorder(b);
+            txtDNI.setBorder(b);
+            txtDireccion.setBorder(b);
+            txtNombre.setBorder(b);
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        btnOk = new javax.swing.JButton();
+        txtDNI = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtApellidoP = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
+        txtApellidoM = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtCelular = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+
+        jLabel7.setText("Telefono");
+
+        jLabel6.setText("Celular");
+
+        jLabel5.setText("Direccion");
+
+        btnOk.setText("Aceptar");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
+
+        txtDNI.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtApellidoP.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtApellidoM.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setText("Codigo Admin");
+
+        jLabel8.setText("Email");
+
+        jLabel2.setText("Nombre");
+
+        txtDireccion.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel3.setText("Apellido Paterno");
+
+        jLabel9.setText("DNI");
+
+        jLabel4.setText("Apellido Materno");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(249, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnOk)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNombre)
+                            .addComponent(txtApellidoP)
+                            .addComponent(txtDireccion)
+                            .addComponent(txtCelular)
+                            .addComponent(txtTelefono)
+                            .addComponent(txtEmail)
+                            .addComponent(txtDNI)
+                            .addComponent(txtApellidoM)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(243, 243, 243))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnOk)
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        // TODO add your handling code here:
+        registrarAdministrativo();
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOk;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField txtApellidoM;
+    private javax.swing.JTextField txtApellidoP;
+    private javax.swing.JTextField txtCelular;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtDNI;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
+    // End of variables declaration//GEN-END:variables
+}
